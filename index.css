@@ -1,0 +1,17 @@
+body {
+    margin: 1rem;
+    padding: 1rem;
+    font-family: "Times New Roman", Times, serif;
+    font-style: normal;
+    font-size: larger;
+    line-height: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+}
