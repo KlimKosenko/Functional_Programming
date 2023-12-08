@@ -85,11 +85,70 @@
     <br>
     <br>
     <div>
-      <strong>Код</strong>
+      <strong>Код 1</strong>
       <br>
-      <img src="code1.png" alt="Код 1">
+      <pre>
+        ";Функція
+        (define (f x)
+          (- (* 3 (exp (* -3 x))) x))
+        
+        ;Метод Хорд
+        (define (chord-method a b epsilon)
+          
+          (define (chord-iteration ak bk)
+            (let ((xk (- ak (/ (* (f ak) (- bk ak)) (- (f bk) (f ak))))))
+              (if (< (abs (f xk)) epsilon)
+                  xk
+                  (if (< (* (f ak) (f xk)) 0)
+                      (chord-iteration ak xk)
+                      (chord-iteration xk bk)))))
+          
+          (chord-iteration a b))
+                  
+        (display "Метод Хорд: ")
+        (display (chord-method 1 0 0.0001))
+        (newline)
+        
+        ;Метод Ньютона
+        (define (df x)
+          (- (* -9 (exp (* -3 x))) 1))
+        
+        (define (newton-method x epsilon)
+          (if (< (abs (f x)) epsilon)
+              x
+              (newton-method (- x (/ (f x) (df x))) epsilon)))
+        
+        (display "Метод Ньютона: ")
+        (display (newton-method 3 0.0001))
+        (newline)"
+      </pre>
       <br>
-      <img src="code2.png" alt="Код 1">
+      <strong>Код 2</strong>
+      <br>
+      <pre>
+        ";метод прямокутників
+        (define (rectangle-method f a b n)
+          (define (delta-x a b n)
+            (/ (- b a) n))
+          (define (x i a delta-x)
+            (+ a (* i delta-x)))
+          (define (sum i a delta-x f)
+            (if (> i n)
+                0
+                (+ (f (x (+ i 0.5) a delta-x)) (sum (+ i 1) a delta-x f))))
+          (* (delta-x a b n) (sum 0 a (delta-x a b n) f)))
+        
+        ;метод Сімпсона
+        (define (simpson-method f a b)
+          (* (/ (- b a) 6) (+ (f a) (* 4 (f (/ (+ a b) 2))) (f b))))
+        
+        (display "Метод прямокутників: ")
+        (display (rectangle-method (lambda (x) (cos (+ (* x x) x 1))) 0 1 1000))
+        (newline)
+        (display "Метод Сімпсона: ")
+        (display (simpson-method (lambda (x) (cos (+ (* x x) x 1))) 0 1))
+        (newline)"
+      </pre>
     </div>
     <br>
     <br>

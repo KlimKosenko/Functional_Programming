@@ -87,11 +87,66 @@
     <br>
     <br>
     <div>
-      <strong>Код</strong>
+      <strong>Код 1</strong>
       <br>
-      <img src="code1.png" alt="Код 1">
+      <pre>
+        ";1
+        (define (factorial n)
+          (if (= n 0)
+              1
+              (* n (factorial (- n 1)))))
+        
+        (define (power x n)
+          (if (= n 0)
+              1
+              (* x (power x (- n 1)))))
+        
+        (define (sint x)
+          (define (term n)
+            (if (= n 0)
+                x
+                (* (/ (power -1 n) (factorial (* 2 n)))
+                   (power x (* 2 n)))))
+          (define (sum-terms x n)
+            (if (= n 0)
+                (term 0)
+                (+ (term n) (sum-terms x (- n 1)))))
+          (sum-terms x 10))
+        
+        (do ((x -2 (+ x 0.5)))
+              ((> x 2))
+            (newline)
+            (if(and (>= x -2) (<= x 0))
+               (display(- (sint x) (sint (/ x 2.0)))))
+            (if(and (> x 0) (< x 1))
+               (display(- (power (sint x) 3) (sint (+ x 0.125))))))"
+      </pre>
       <br>
-      <img src="code2.png" alt="Код 1">
+      <strong>Код 2</strong>
+      <br>
+      <pre>
+        ";2
+        (define (continued-fraction a n)
+          (if (= n 0)
+              a
+              (+ (+ (* a 2) 1) (/ (* (+ a 1) (+ a 1)) (continued-fraction (+ a 1) (- n 1))))))
+        
+        (define (compute-continued-fraction a tolerance)
+          (define (iter n)
+            (let ((approximation (/ 4 (continued-fraction a n)))
+                  (previous-approximation (if (= (- n 1) 0) 0 (/ 4 (continued-fraction a (- n 1))))))
+              (if (< (abs (- approximation previous-approximation)) tolerance)
+                  (exact->inexact approximation)
+                  (iter (+ n 1)))))
+          (iter 1))
+        
+        (display "Введіть точність: ")
+        (define tolerance (read))
+        
+        (display "Значення ланцюгового дробу з заданою точністю: ")
+        (display (compute-continued-fraction 0 tolerance))
+        (newline)"
+      </pre>
     </div>
     <br>
     <br>

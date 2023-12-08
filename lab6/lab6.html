@@ -87,13 +87,104 @@
     <br>
     <br>
     <div>
-      <strong>Код</strong>
+      <strong>Код 1</strong>
       <br>
-      <img src="code1.png" alt="Код 1">
+      <pre>
+        "(define (filter-vector pred vector1)
+        (let ((new-list '()))
+          (do ((i 0 (+ i 1)))
+              ((= i (vector-length vector1)) (reverse new-list))
+            (if (pred (vector-ref vector1 i))
+                (set! new-list (cons (vector-ref vector1 i) new-list))))))
+      
+      (define (construct-new-vector original-vector)
+        (let ((divisible-by-2 (filter-vector (lambda (x) (and (= (remainder x 2) 0) (not(= (remainder x 3) 0)))) original-vector))
+               (divisible-by-2-and-3 (filter-vector (lambda (x) (and (= (remainder x 2) 0) (= (remainder x 3) 0))) original-vector))
+               (divisible-only-by-3 (filter-vector (lambda (x) (and (not(= (remainder x 2) 0)) (= (remainder x 3) 0))) original-vector)))
+          (list->vector (append divisible-by-2 divisible-by-2-and-3 divisible-only-by-3))))
+      
+      (define input-vector (vector 1 2 3 4 6 9 12 18 24 27))
+      
+      (define output-vector (construct-new-vector input-vector))
+      
+      (display "Input Vector: ")
+      (write input-vector)
+      (newline)
+      
+      (display "Output Vector: ")
+      (write output-vector)
+      (newline)"
+      </pre>
       <br>
-      <img src="code2.png" alt="Код 1">
+      <strong>Код 2</strong>
       <br>
-      <img src="code3.png" alt="Код 1">
+      <pre>
+        "(define (make-queue)
+        (define p (cons '() '() ) )
+        (cons p p)
+       )
+       ;========== ==Перевірка черги на пустоту==========
+       (define (null-queue? q)
+        (and
+         (eq? (front q) (rear q)) (eq? (car (front q)) '() ))
+       )
+       ;===== селектор (доступ) до першого елемента черги===
+       (define (front q)
+        (car q)) 
+       ;==== селектор (доступ) до останнього елемента черги ==
+       (define (rear q)
+        (cdr q))
+       ;========додавання нового елемента в чергу=========
+       (define (push q e)
+        (define p (cons e '()))
+        (if (null-queue? q)
+         (begin (set-car! q p)
+          (set-cdr! q p)
+         )
+         (begin
+          (set-cdr! (rear q) p)
+          (set-cdr! q p)
+         ) ) )
+       ;========== вилучення елемента з черги============
+       (define (pop q)
+        (define x 0)
+        (if (null-queue? q)
+         'Empty    ;==== виведення повідомдення про пусту чергу
+         (if (and (eq? (front q) (rear q))  (eq? '() (cdr (front q)))   )
+          (begin
+           (set! x (car (front q)))
+           (set-car! (front q) '() )
+           x ) 
+          (begin
+           (set! x (car (front q)))
+           (set-car! q (cdr (front q)) )
+           x ))))
+       
+       (define (full-queue list queue)
+         (if(null? list)
+            0
+         (begin
+           (push queue (car list))
+           (full-queue (cdr list) queue)))
+        )
+       (define (get-all-even q q2)
+         (if (null-queue? q)
+            0
+         (begin
+           (let ((elem (pop q)))
+             (if (even? elem)
+                 (push q2 elem)))
+           (get-all-even q q2))))
+       
+       (define q1 (make-queue))
+       (define q2 (make-queue))
+       (full-queue '(1 2 3 4 5 6 7 8 9 10) q1)
+       (display q1)
+       (newline)
+       (get-all-even q1 q2)
+       (display q2)
+      "
+      </pre>
     </div>
     <br>
     <br>

@@ -85,11 +85,97 @@
     <br>
     <br>
     <div>
-      <strong>Код</strong>
+      <strong>Код 1</strong>
       <br>
-      <img src="code1.png" alt="Код 1">
+      <pre>
+        "(define (factorial n)
+        (if (= n 0)
+            1
+            (* n (factorial (- n 1)))))
+      
+      (define (create-factorial-list n)
+        (define (iter i acc)
+          (if (> i n)
+              acc
+              (begin
+                (display "Введіть число: ")
+                (let ((numb (read)))
+                  (newline)
+                  (iter (+ i 1) (cons (factorial numb) acc))))))
+        (reverse (iter 1 '())))
+      
+      (display "Задайте кількість факторіалів: ")
+      (define number (read))
+      (define factorial-list (create-factorial-list number))
+      (display "Список факторіалів: ")
+      (display factorial-list)
+      (newline)
+      
+      (define (find-max-min lst)
+        (if (null? lst)
+            '()
+            (let ((max-min (find-max-min (cdr lst))))
+              (if (null? max-min)
+                  (list (car lst) (car lst))
+                  (list (max (car lst) (car max-min))
+                        (min (car lst) (cadr max-min)))))))
+      
+      (define (list-sum lst)
+        (if (null? lst)
+            0
+            (+ (car lst) (list-sum (cdr lst))))
+        )
+      
+      (define (index-of lst value)
+        (define (iter lst index)
+          (cond ((null? lst) #f)
+                ((equal? (car lst) value) index) 
+                (else (iter (cdr lst) (+ index 1)))))
+      
+        (iter lst 0))
+      
+      (define (take-while pred lst)
+        (if (not (pred (car lst)))
+            (list(car lst))
+            (cons (car lst) (take-while pred (cdr lst)))))
+      
+      (define (drop-while pred lst)
+        (if (not (pred (car lst)))
+            lst
+            (drop-while pred (cdr lst))))
+      
+      (define (add-elements-between-max-min lst new-lst max min)
+        (if (> (index-of lst max) (index-of lst min))
+        (let ((before (take-while (lambda (x) (not (= x min))) lst))
+               (after (drop-while (lambda (x) (not (= x max))) lst)))
+          (append before new-lst after))
+        (let ((before (take-while (lambda (x) (not (= x max))) lst))
+              (after (drop-while (lambda (x) (not (= x min))) lst)))
+          (append before new-lst after))))
+      
+      (define max-min (find-max-min factorial-list))
+      (display "Максимальний елемент: ")
+      (display (car max-min))
+      (newline)
+      (display "Мінімальний елемент: ")
+      (display (cadr max-min))
+      (newline)
+      (display "Задайте кількість факторіалів: ")
+      (define new-number (read))
+      (define new-factorial-list (create-factorial-list new-number))
+      (display "Список нових факторіалів: ")
+      (display new-factorial-list)
+      (newline)
+      (display "Сума нових факторіалів: ")
+      (display (list-sum new-factorial-list))
+      (newline)
+      (display "Оновлений список: ")
+      (newline)
+      (define update-factorial-list (add-elements-between-max-min factorial-list new-factorial-list (car max-min) (cadr max-min)))
+      (display update-factorial-list)
+      "
+      </pre>
       <br>
-      <img src="code2.png" alt="Код 1">
     </div>
     <br>
     <br>

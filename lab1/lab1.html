@@ -89,9 +89,49 @@
     <br>
     <br>
     <div>
-      <strong>Код</strong>
+      <strong>Код 1</strong>
       <br>
-      <img src="code.png" alt="Код 1">
+      <pre>
+        ";4.1
+        (display "Enter X: ")
+        (define x (read))
+        
+        (display "Enter n: ")
+        (define n (read))
+        
+        (define (pow x n)
+          (define (recpow x1 n)
+            (if (= n 1)
+               x1
+               (recpow (* x x1) (- n 1))))
+          (if(< n 0)
+             (display "Не вірний параметр")
+             (recpow x n))
+          )
+        
+        (if (= n 1)
+            (display x)
+            (if (= (remainder n 2) 0)
+                 (display (pow x (* 2 (/ n 2))))
+                 (display (pow x (* 2 (/ (- n 1) 2))))
+             )
+        )"
+      </pre>
+      <br>
+      <strong>Код 2</strong>
+      <br>
+      <pre>
+        ";4.2
+        (display "\nEnter n: ")
+        (define n (read))
+        
+        (define (sumDigit n)
+          (if (= n 0)
+              0
+              (+ (remainder n 10) (sumDigit (quotient n 10))))
+        )
+        (display (sumDigit n))"
+      </pre>
     </div>
     <br>
     <br>
